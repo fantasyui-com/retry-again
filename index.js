@@ -2,7 +2,7 @@
 class Retry {
 
   constructor( program , options ){
-    const defaults = {count:5, delay:10, start:true, end:null};
+    const defaults = {count:5, delay:10, start:true, end:null, debug:false};
     const { count, delay, start, end } = Object.assign({}, defaults, options)
     this.end = end;
     this.count = count;
@@ -29,12 +29,12 @@ class Retry {
         if(this.tries<this.count) {
           this.start(); // start again;
         }else{
-          // console.log('SOCKET MESSAGE FAILURE #%d: GIVING UP.', this.session, this.tries, error.message);
+          if (this.debug) console.log('retry-again: SOCKET MESSAGE FAILURE #%d: GIVING UP.', this.session, this.tries, error.message);
           this.failure = true;
           if(this.end) this.end(this.failure);
         }
       }else{
-        // console.log('SENT OK, retries: %d', this.session, this.tries);
+        if (this.debug) console.log('retry-again: SENT OK, retries: %d', this.session, this.tries);
         //no error, EXIT;
         this.failure = false;
         if(this.end) this.end(this.failure);
