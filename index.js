@@ -27,14 +27,15 @@ class Retry {
       }
       if(error){
         if(this.tries<this.count) {
+          if (this.debug) console.log('retry-again: retries: %d', this.tries);
           this.start(); // start again;
         }else{
-          if (this.debug) console.log('retry-again: SOCKET MESSAGE FAILURE #%d: GIVING UP.', this.session, this.tries, error.message);
+          if (this.debug) console.log('retry-again: SOCKET MESSAGE FAILURE #%d: GIVING UP.', this.tries, error.message);
           this.failure = true;
           if(this.end) this.end(this.failure);
         }
       }else{
-        if (this.debug) console.log('retry-again: SENT OK, retries: %d', this.session, this.tries);
+        if (this.debug) console.log('retry-again: SENT OK, retries: %d', this.tries);
         //no error, EXIT;
         this.failure = false;
         if(this.end) this.end(this.failure);
