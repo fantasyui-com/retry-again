@@ -1,6 +1,6 @@
 {
   "name": "retry-again",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "Retry function execution N ms later, controlled by try/catch error events, just new Retry(funct)",
   "main": "index.js",
   "scripts": {
